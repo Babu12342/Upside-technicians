@@ -1,6 +1,13 @@
 <?php
 // includes/header.php
 ?>
+<head>
+    <!-- Favicon / Tab Icon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+</head>
+
 <nav style="background: #0f172a; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
     <div style="font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 10px;">
         <a href="index.php" style="color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;">
