@@ -1,0 +1,110 @@
+/* --- FORMS & REPAIR PAGE --- */
+.repair-container {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 40px;
+    margin: 40px auto;
+}
+
+.form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--surface-color);
+    color: var(--text-main);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background: var(--bg-color);
+    box-shadow: 0 0 0 3px rgba(0, 87, 217, 0.1);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.repair-info-sidebar {
+    background: var(--surface-color);
+    padding: 40px;
+    border-radius: 12px;
+    height: fit-content;
+}
+
+.info-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info-icon {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.tracking-box {
+    background: #fff;
+    border: 2px dashed var(--primary-blue);
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--primary-blue);
+}
+
+@media (max-width: 768px) {
+    .repair-container { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+}
