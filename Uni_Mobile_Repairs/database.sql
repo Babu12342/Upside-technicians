@@ -1,9 +1,9 @@
--- Create database
+-- 1. Create and Select Database
 CREATE DATABASE IF NOT EXISTS uni_mobile_repairs;
 USE uni_mobile_repairs;
 
--- 1. Users & Customers (Handles both Admins and Shoppers)
-CREATE TABLE users (
+-- 2. Users & Customers (Handles both Admins and Shoppers)
+CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -14,30 +14,30 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Categories
-CREATE TABLE categories (
+-- 3. Categories
+CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     slug VARCHAR(100) NOT NULL UNIQUE,
     image_url VARCHAR(255)
 );
 
--- 3. Brands
-CREATE TABLE brands (
+-- 4. Brands
+CREATE TABLE IF NOT EXISTS brands (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     slug VARCHAR(100) NOT NULL UNIQUE
 );
 
--- 4. Products
-CREATE TABLE products (
+-- 5. Products
+CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT,
     brand_id INT,
     name VARCHAR(255) NOT NULL,
     slug VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
-    specifications JSON, -- Stores specs cleanly (e.g., RAM, Storage, Battery)
+    specifications JSON,
     price DECIMAL(10,2) NOT NULL,
     discount_price DECIMAL(10,2) NULL,
     stock_quantity INT DEFAULT 0,
@@ -48,8 +48,8 @@ CREATE TABLE products (
     FOREIGN KEY (brand_id) REFERENCES brands(id) ON DELETE SET NULL
 );
 
--- 5. Product Images (Allows multiple images per product)
-CREATE TABLE product_images (
+-- 6. Product Images (Allows multiple images per product)
+CREATE TABLE IF NOT EXISTS product_images (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     image_url VARCHAR(255) NOT NULL,
@@ -57,10 +57,10 @@ CREATE TABLE product_images (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
--- 6. Repair Bookings
-CREATE TABLE repair_bookings (
+-- 7. Repair Bookings
+CREATE TABLE IF NOT EXISTS repair_bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NULL, -- Nullable for guest checkouts
+    user_id INT NULL,
     customer_name VARCHAR(100) NOT NULL,
     customer_phone VARCHAR(20) NOT NULL,
     customer_email VARCHAR(100),
@@ -75,21 +75,22 @@ CREATE TABLE repair_bookings (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- 7. Orders
-CREATE TABLE orders (
+-- 8. Orders
+CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
     payment_method ENUM('mpesa', 'visa', 'mastercard', 'paypal', 'bank_transfer') NOT NULL,
     payment_status ENUM('pending', 'paid', 'failed', 'refunded') DEFAULT 'pending',
     order_status ENUM('processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'processing',
+    transaction_reference VARCHAR(100) NULL,
     shipping_address TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- 8. Order Items
-CREATE TABLE order_items (
+-- 9. Order Items
+CREATE TABLE IF NOT EXISTS order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -99,8 +100,8 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT
 );
 
--- 9. Reviews
-CREATE TABLE reviews (
+-- 10. Reviews
+CREATE TABLE IF NOT EXISTS reviews (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -111,8 +112,8 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- 10. Wishlist
-CREATE TABLE wishlist (
+-- 11. Wishlist
+CREATE TABLE IF NOT EXISTS wishlist (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -122,8 +123,8 @@ CREATE TABLE wishlist (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
--- 11. Cart (Persistent cart for logged-in users)
-CREATE TABLE cart (
+-- 12. Cart (Persistent cart for logged-in users)
+CREATE TABLE IF NOT EXISTS cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
