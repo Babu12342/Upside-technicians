@@ -49,7 +49,7 @@ function verify_csrf() {
  */
 function get_product_image_url($image_path) {
     if (empty($image_path)) {
-        return 'assets/images/placeholder.png';
+        return 'Assets/images/placeholder.png';
     }
 
     $project_root = dirname(__DIR__); // Root directory of the project
@@ -65,7 +65,7 @@ function get_product_image_url($image_path) {
         'uploads/' . $filename,
         'Admin/uploads/products/' . $filename,
         'Admin/uploads/' . $filename,
-        'assets/images/' . $filename
+        'Assets/images/' . $filename
     ];
 
     $found_path = null;
@@ -79,7 +79,7 @@ function get_product_image_url($image_path) {
 
     // Fallback if the image does not exist on disk
     if (!$found_path) {
-        $found_path = 'assets/images/placeholder.png';
+        $found_path = 'Assets/images/placeholder.png';
     }
 
     // If script is executing from inside the Admin subfolder, prepend '../'
