@@ -135,7 +135,7 @@ unset($_SESSION['flash_success']);
 
         /* --- HERO BANNER --- */
         .hero-banner { 
-            background: linear-gradient(rgba(11, 19, 32, 0.82), rgba(11, 19, 32, 0.88)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; 
+            background: linear-gradient(rgba(11, 19, 32, 0.82), rgba(11, 19, 32, 0.88)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
             color: #fff; 
             text-align: center; 
             padding: 75px 20px 85px 20px; 
@@ -473,7 +473,7 @@ unset($_SESSION['flash_success']);
     <?php else: ?>
         <div class="product-grid">
             <?php foreach ($products as $p): ?>
-                <?php $imageUrl = get_product_image_url($p['image'], false); ?>
+                <?php $imageUrl = get_product_image_url($p['image']); ?>
                 <div class="product-card">
                     
                     <div class="img-container">
@@ -532,10 +532,10 @@ unset($_SESSION['flash_success']);
             <div class="footer-col">
                 <h4>Customer Services</h4>
                 <ul class="footer-links">
-                    <li><a href="tel:0703449550" onclick="alert('Upside Technicians Help Center:\n\nCall or WhatsApp us directly at 0703449550 for instant support and repair inquiries.');">Help Center (Call 0703449550)</a></li>
+                    <li><a href="tel:0703449550" onclick="alert('Upside Technicians Help Center:\n\nCall or WhatsApp us directly at 0703449550 for instant support and repair inquiries.');">Help Center</a></li>
                     <li><a href="cart.php">Order Status</a></li>
                     <li><a href="book-repair.php" class="highlight-link">Book a Repair</a></li>
-                    <li><a href="#" onclick="alert('Upside Technicians Return Policy:\n\n1. 7-Day Exchange: Items with manufacturing defects can be returned or exchanged within 7 days of delivery.\n2. 30-Day Repair Warranty: All device repair services (screens, charging ports, batteries) include a 30-day warranty.\n3. Conditions: Returned items must include original receipt, original packaging, and accessories.\n\nFor return requests, call 0703449550.'); return false;">Return Policy</a></li>
+                    <li><a href="#" onclick="alert('Upside Technicians Return Policy:\n\n1. 7-Day Exchange: Items with manufacturing defects can be returned or exchanged within 7 days of delivery');">Return Policy</a></li>
                     <li><a href="book-repair.php">Repairs</a></li>
                 </ul>
             </div>
@@ -544,9 +544,9 @@ unset($_SESSION['flash_success']);
             <div class="footer-col">
                 <h4>Information</h4>
                 <ul class="footer-links">
-                    <li><a href="#" onclick="alert('About Upside Technicians:\n\nWe are your trusted campus tech partner specializing in expert smartphone, tablet, and laptop repairs, genuine spare parts, and certified electronics sales in Eldoret, Kenya.'); return false;">About Us</a></li>
-                    <li><a href="#" onclick="alert('Privacy Policy:\n\nUpside Technicians respects your personal data. Customer contact details and device information collected during orders or bookings are strictly used for service delivery and communication. We never sell or share your data with third parties.'); return false;">Privacy Policy</a></li>
-                    <li><a href="#" onclick="alert('Terms & Conditions:\n\n1. Warranty applies only to fixed issues specified on the repair invoice.\n2. Payment is due upon completion of repair or order checkout.\n3. Unclaimed devices after 60 days may be subject to storage fees.\n4. Defective tech accessories are covered under our 7-day return policy.'); return false;">Terms & Conditions</a></li>
+                    <li><a href="#" onclick="alert('About Upside Technicians:\n\nWe are your trusted campus tech partner specializing in expert smartphone, tablet, and laptop repairs, genuine spare parts, and device support.');">About Us</a></li>
+                    <li><a href="#" onclick="alert('Privacy Policy:\n\nUpside Technicians respects your personal data. Customer contact details and device information collected during orders or bookings are only used to fulfil services.');">Privacy Policy</a></li>
+                    <li><a href="#" onclick="alert('Terms & Conditions:\n\n1. Warranty applies only to fixed issues specified on the repair invoice.\n2. Payment is due upon completion of repair or at checkout.');">Terms & Conditions</a></li>
                 </ul>
             </div>
 
