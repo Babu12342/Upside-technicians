@@ -1,6 +1,7 @@
 <?php
 // product.php
 require_once 'includes/db.php';
+require_once 'includes/functions.php';
 
 // Get the product slug from the URL
 $slug = $_GET['slug'] ?? '';
@@ -12,13 +13,14 @@ if (!$slug) {
 }
 
 // Fetch the main product data
-$stmt = $pdo->prepare("
+$stmt = $pdo->prepare(""
     SELECT p.*, c.name AS category_name, b.name AS brand_name 
     FROM products p 
     LEFT JOIN categories c ON p.category_id = c.id
     LEFT JOIN brands b ON p.brand_id = b.id
     WHERE p.slug = ? AND p.status != 'hidden'
-");
+""
+);
 $stmt->execute([$slug]);
 $product = $stmt->fetch();
 
@@ -36,10 +38,10 @@ $stmtImages->execute([$product['id']]);
 $images = $stmtImages->fetchAll();
 
 // Determine stock status
-$inStock = $product['stock_quantity'] > 0;
+$inStock = ($product['stock_quantity'] ?? 0) > 0;
 
 // Decode JSON specs safely
-$specifications = json_decode($product['specifications'], true) ?: [];
+$specifications = json_decode($product['specifications'] ?? '[]', true) ?: [];
 
 include 'includes/header.php';
 ?>
@@ -49,14 +51,16 @@ include 'includes/header.php';
     <!-- Left Column: Image Gallery -->
     <div class="product-gallery">
         <?php 
-        $mainImg = !empty($images) ? 'assets/images/products/' . htmlspecialchars($images[0]['image_url']) : 'https://via.placeholder.com/600x600.png?text=No+Image';
+        // Use helper to resolve image paths and fallbacks
+        $mainImg = !empty($images) ? get_product_image_url($images[0]['image_url']) : get_product_image_url('');
         ?>
-        <img src="<?php echo $mainImg; ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="main-image" id="featured-image">
+        <img src="<?php echo htmlspecialchars($mainImg); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="main-image" id="featured-image">
         
         <?php if (count($images) > 1): ?>
             <div class="thumbnail-grid">
-                <?php foreach ($images as $img): ?>
-                    <img src="assets/images/products/<?php echo htmlspecialchars($img['image_url']); ?>" 
+                <?php foreach ($images as $img): 
+                    $thumb = get_product_image_url($img['image_url']); ?>
+                    <img src="<?php echo htmlspecialchars($thumb); ?>" 
                          alt="Thumbnail" 
                          onclick="document.getElementById('featured-image').src=this.src">
                 <?php endforeach; ?>
@@ -79,7 +83,7 @@ include 'includes/header.php';
         </div>
 
         <div class="price-block">
-            <?php if ($product['discount_price']): ?>
+            <?php if (!empty($product['discount_price'])): ?>
                 <span class="current-price">Ksh <?php echo number_format($product['discount_price']); ?></span>
                 <span class="old-price">Ksh <?php echo number_format($product['price']); ?></span>
             <?php else: ?>
